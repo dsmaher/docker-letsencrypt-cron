@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  certbot:
+  renew:
     build: .
     image: artifacts.dsmaher.com/certbot:latest
     container_name: certbot
@@ -15,3 +15,4 @@ services:
       - EMAIL=dan@dsmaher.com
       - CONCAT=false
       - SEPARATE=false
+    command: sh /scripts/run_renew.sh
