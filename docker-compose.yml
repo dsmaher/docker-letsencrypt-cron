@@ -6,12 +6,12 @@ services:
     image: artifacts.dsmaher.com/certbot:latest
     container_name: certbot
     volumes:
-      - /data/letsencrypt:/etc/letsencrypt
-      - /data/nginx/html/.well-known:/usr/share/nginx/html/.well-known
+      - ${DATA}/letsencrypt:/etc/letsencrypt
+      - ${DATA}/nginx/html/.well-known:/usr/share/nginx/html/.well-known
     restart: always
     environment:
       - WEBROOT=/usr/share/nginx/html
-      - DOMAINS=dsmaher.com www.dsmaher.com artifacts.dsmaher.com
       - EMAIL=dan@dsmaher.com
+      - DOMAINS=${DOMAINS}
       - CONCAT=false
       - SEPARATE=false

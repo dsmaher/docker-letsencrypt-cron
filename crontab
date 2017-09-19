@@ -1,1 +1,1 @@
-0 3 1 */2 * root sh /scripts/run_renew.sh
+0 3 1 */2 * sh /scripts/run_renew.sh

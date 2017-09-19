@@ -12,7 +12,7 @@ In docker-compose.yml, change the environment variables:
 - DOMAINS: a space separated list of domains for which you want to generate certificates.
 - EMAIL: where you will receive updates from letsencrypt.
 - CONCAT: true or false, whether you want to concatenate the certificate's full chain with the private key (required for e.g. haproxy), or keep the two files separate (required for e.g. nginx or apache).
-- SEPARATE: true or false, whether you want one certificate per domain or one certificate valid for all domains. 
+- SEPARATE: true or false, whether you want one certificate per domain or one certificate valid for all domains.
 
 ## Running
 
@@ -96,3 +96,12 @@ Certbot github: https://github.com/certbot/certbot
 
 ### 0.1
 - Initial release
+
+-----------------------------
+# Compose utils...
+
+1. Set `DOMAINS` in `.env` file or environment to the domains that need to be updated
+1. Set `DATA` in `.env` or environment to data path where `/letsencrypt` and `/nginx` folders live
+1. Run `docker-compose -f docker-compose.utils.yml certonly` for initial cert
+1. Run `docker-compose -f docker-compose.utils.yml renew` to run renewal
+1. Run `docker-compose up -d` to launch the cron that runs renew every 2 weeks

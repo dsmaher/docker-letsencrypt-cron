@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+  renew:
+    build: .
+    image: artifacts.dsmaher.com/certbot:latest
+    container_name: certbot-renew
+    volumes:
+      - ${DATA}/letsencrypt:/etc/letsencrypt
+      - ${DATA}/nginx/html/.well-known:/usr/share/nginx/html/.well-known
+    environment:
+      - WEBROOT=/usr/share/nginx/html
+      - EMAIL=dan@dsmaher.com
+      - DOMAINS=${DOMAINS}
+      - CONCAT=false
+      - SEPARATE=false
+    command: sh /scripts/run_renew.sh
+  certonly:
+    build: .
+    image: artifacts.dsmaher.com/certbot:latest
+    container_name: certbot-new
+    volumes:
+      - ${DATA}/letsencrypt:/etc/letsencrypt
+      - ${DATA}/nginx/html/.well-known:/usr/share/nginx/html/.well-known
+    environment:
+      - WEBROOT=/usr/share/nginx/html
+      - EMAIL=dan@dsmaher.com
+      - DOMAINS=${DOMAINS}
+      - CONCAT=false
+      - SEPARATE=false
+    command: sh /scripts/run_certbot.sh
+
