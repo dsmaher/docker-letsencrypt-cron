@@ -9,9 +9,13 @@ get_certificate() {
   # - CONCAT
   # - args
 
+  mkdir -p /usr/share/nginx/html/.well-known/acme-challenge
+
   local d=${CERT_DOMAINS//,*/} # read first domain
   echo "Getting certificate for $CERT_DOMAINS"
-  certbot renew --webroot-path /usr/share/nginx/html
+  certbot renew --webroot-path /usr/share/nginx/html -n \
+    --no-random-sleep-on-renew \
+    -d $CERT_DOMAINS $args
   ec=$?
   echo "certbot exit code $ec"
   if [ $ec -eq 0 ]
